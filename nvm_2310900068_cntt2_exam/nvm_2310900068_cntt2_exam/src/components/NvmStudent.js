@@ -8,9 +8,9 @@ export default class NvmStudent extends Component {
             <>
                 <tr>
                     <td>1</td>
-                    <td>SV001</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>20</td>
+                    <td>2310900068</td>
+                    <td>Nguyễn Văn Minh</td>
+                    <td>Minh XInh</td>
                     <td>Nam</td>
                     <td>
                         <div className="template-demo">

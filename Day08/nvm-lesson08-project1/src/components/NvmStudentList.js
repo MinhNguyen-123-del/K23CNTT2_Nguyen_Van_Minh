@@ -2,7 +2,18 @@ import React, { Component } from 'react'
 import NvmStudent from './NvmStudent'
 
 export default class NvmStudentList extends Component {
+    constructor(props){
+        super(props);
+    }
     render() {
+         //Lấy dữ liệu trong props từ NvmAPP 
+         let {renderNvmStudents}=this.props;
+         console.log("List:",renderNvmStudents);
+         //Chuyển dữ liệu vào NvmStudent để hiện thị
+         let nvmElementStudent =renderNvmStudents.map((nvmItem,idex)=>{
+             return <NvmStudent/>
+         })
+         
         return (
             <div className="card-body">
                 <h3 className="card-title">Danh sách sinh viên</h3>
@@ -19,7 +30,8 @@ export default class NvmStudentList extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <NvmStudent/>
+                            
+                            {nvmElementStudent}
                         </tbody>
                     </table>
                 </div>
