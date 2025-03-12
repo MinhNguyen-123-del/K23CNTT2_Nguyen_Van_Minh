@@ -26,12 +26,9 @@ export default class NvmForm extends Component {
               </div>
             </div>
             <div className="form-group row">
-              <label className="col-sm-3 col-form-label">Nvm_Giới tính</label>
+              <label className="col-sm-3 col-form-label">Password</label>
               <div className="col-sm-9">
-                <select className="form-control">
-                  <option>Nam</option>
-                  <option>Nữ</option>
-                </select>
+                <input type="text" className="form-control" />
               </div>
             </div>
             <div className="form-group row">

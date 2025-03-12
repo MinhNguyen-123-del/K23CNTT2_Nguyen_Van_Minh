@@ -30,7 +30,7 @@ export default class NvmStudentList extends Component {
                                 <th>Nvm_ID</th>
                                 <th>Nvm_Tên sinh viên</th>
                                 <th>Nvm_UserName</th>
-                                <th>Nvm_Giới tính</th>
+                                <th>Nvm_Password</th>
                                 <th>Nvm_Hành động</th>
                             </tr>
                         </thead>
