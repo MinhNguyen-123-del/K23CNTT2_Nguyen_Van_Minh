@@ -1,0 +1,25 @@
+{
+    "users":[
+        {
+            "fullName":"Nguyễn Văn Minh",
+            "age":18,
+            "class":"k23CNT2"
+        },
+        {
+            "fullName":"Đàm Vĩnh Hưng",
+            "age":19,
+            "class":"k23CNT1"
+        },
+        {
+            "fullName":"Công Tằng Công Nữ",
+            "age":19,
+            "class":"k23CNT3"
+        }
+    ],
+    "students":[
+        {
+            "studentId":"SV0001",
+            "studentName":"Nguyễn Văn D"
+        }
+    ]
+}
