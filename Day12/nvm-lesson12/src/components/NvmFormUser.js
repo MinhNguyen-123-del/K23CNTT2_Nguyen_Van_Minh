@@ -12,6 +12,8 @@ export default function NvmFormUser() {
   const nvmHandleSubmit = (event) => {
     event.preventDefault();
     console.log(nvmid,nvmFullName,nvmUserName,nvmFullName,nvmPass)
+
+    onNvmAddNew({nvmid,nvmFullName,nvmUserName,nvmFullName,nvmPass})
     // Xử lý form submit ở đây
     console.log("Form submitted!");
   };
