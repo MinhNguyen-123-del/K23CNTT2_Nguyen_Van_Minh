@@ -34,6 +34,12 @@ export default function NvmCreateUser1() {
         setNvmPhone('');
         setNvmActive(true); // Reset form
       })
+      .catch((error) => {
+        // Xử lý khi có lỗi
+        console.log('Lỗi phát sinh khi thêm dữ liệu:', error);
+        setErrorMessage('Không thể thêm người dùng. Vui lòng thử lại!');
+        setSuccessMessage('');  // Xóa thông báo thành công nếu có
+      });
   };
 
   return (

@@ -1,53 +1,70 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function NvmCreateUser1() {
+export default function NvmEditUser() {
+  const { id } = useParams(); // Lấy id từ URL
+  const navigate = useNavigate(); // Điều hướng sau khi sửa thành công
+
   // Khởi tạo state
-  const [nvmName, setNvmName] = useState('');
-  const [nvmEmail, setNvmEmail] = useState('');
-  const [nvmPhone, setNvmPhone] = useState('');
+  const [nvmName, setNvmName] = useState("");
+  const [nvmEmail, setNvmEmail] = useState("");
+  const [nvmPhone, setNvmPhone] = useState("");
   const [nvmActive, setNvmActive] = useState(true);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // API POST
-  const nvmCreateUserApi =
-    'https://67d98b5700348dd3e2ab915e.mockapi.io/k23cntt2_nguyenvanminh/nvm_users';
+  // API URL
+  const apiUrl = `https://67d98b5700348dd3e2ab915e.mockapi.io/k23cntt2_nguyenvanminh/nvm_users/${id}`;
 
-  // Khi submit form
-  const nvmHandleSubmit = (event) => {
+  // Lấy dữ liệu người dùng từ API khi component mount
+  useEffect(() => {
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        const user = response.data;
+        setNvmName(user.nvmName);
+        setNvmEmail(user.nvmEmail);
+        setNvmPhone(user.nvmPhone);
+        setNvmActive(user.nvmActive);
+      })
+      .catch((error) => {
+        console.log("Lỗi khi tải dữ liệu:", error);
+        setErrorMessage("Không thể tải thông tin người dùng.");
+      });
+  }, [id]);
+
+  // Xử lý cập nhật thông tin người dùng
+  const handleUpdate = (event) => {
     event.preventDefault();
 
-    // Tạo đối tượng người dùng mới
-    let nvmNewUser = { nvmName, nvmEmail, nvmPhone, nvmActive };
-    console.log('nvmNewUser:', nvmNewUser);
+    // Tạo đối tượng dữ liệu cần cập nhật
+    const updatedUser = { nvmName, nvmEmail, nvmPhone, nvmActive };
 
-    // Gửi dữ liệu lên API
     axios
-      .post(nvmCreateUserApi, nvmNewUser)
-      .then((nvm_response) => {
-        // Xử lý khi gửi thành công
-        setSuccessMessage('Người dùng đã được tạo thành công!');
-        setErrorMessage('');  // Xóa thông báo lỗi nếu có
-        setNvmName('');
-        setNvmEmail('');
-        setNvmPhone('');
-        setNvmActive(true); // Reset form
+      .put(apiUrl, updatedUser) // Gửi dữ liệu cập nhật lên API
+      .then(() => {
+        setSuccessMessage("Cập nhật thành công!");
+        setErrorMessage("");
+        setTimeout(() => navigate("/"), 2000); // Quay lại trang danh sách sau 2 giây
       })
+      .catch((error) => {
+        console.log("Lỗi khi cập nhật:", error);
+        setErrorMessage("Không thể cập nhật người dùng. Vui lòng thử lại!");
+        setSuccessMessage("");
+      });
   };
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Thêm mới người dùng</h2>
+      <h2 className="text-center mb-4">Chỉnh Sửa Người Dùng</h2>
 
-      {/* Hiển thị thông báo khi thêm thành công hoặc lỗi */}
-      {successMessage && (
-        <div className="alert alert-success">{successMessage}</div>
-      )}
+      {/* Hiển thị thông báo */}
+      {successMessage && <div className="alert alert-success">{successMessage}</div>}
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
       <div className="alert alert-info">
-        <form onSubmit={nvmHandleSubmit}>
+        <form onSubmit={handleUpdate}>
           <div className="mb-3">
             <label htmlFor="nvmName" className="form-label">
               Full Name
@@ -55,7 +72,6 @@ export default function NvmCreateUser1() {
             <input
               type="text"
               className="form-control"
-              name="nvmName"
               id="nvmName"
               value={nvmName}
               onChange={(ev) => setNvmName(ev.target.value)}
@@ -70,7 +86,6 @@ export default function NvmCreateUser1() {
             <input
               type="email"
               className="form-control"
-              name="nvmEmail"
               id="nvmEmail"
               value={nvmEmail}
               onChange={(ev) => setNvmEmail(ev.target.value)}
@@ -85,7 +100,6 @@ export default function NvmCreateUser1() {
             <input
               type="text"
               className="form-control"
-              name="nvmPhone"
               id="nvmPhone"
               value={nvmPhone}
               onChange={(ev) => setNvmPhone(ev.target.value)}
@@ -120,7 +134,7 @@ export default function NvmCreateUser1() {
           </div>
 
           <button type="submit" className="btn btn-primary w-100">
-            Tạo Người Dùng
+            Cập Nhật
           </button>
         </form>
       </div>
